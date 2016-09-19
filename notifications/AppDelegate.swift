@@ -8,9 +8,10 @@
 
 import UIKit
 import UserNotifications
+import AirshipKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UAPushNotificationDelegate {
 
     var window: UIWindow?
 
@@ -19,6 +20,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         UNUserNotificationCenter.current().delegate = self
+        
+        UAirship.takeOff()
+        //UAirship.push().userPushNotificationsEnabled = true
+        UAirship.push().pushNotificationDelegate = self
         
         return true
     }
@@ -35,6 +40,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        
+        UIApplication.shared.applicationIconBadgeNumber = 0
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
@@ -65,8 +72,6 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             print("yo papa, too faat")
             
         }
-        
-        UIApplication.shared.applicationIconBadgeNumber = 0
         
         completionHandler()
     }

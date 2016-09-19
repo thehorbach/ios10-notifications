@@ -8,6 +8,7 @@
 
 import UIKit
 import UserNotifications
+import AirshipKit
 
 class ViewController: UIViewController {
 
@@ -15,6 +16,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 
         //1. Ask for permission
+        UAirship.push().userPushNotificationsEnabled = true
+        
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options: [.alert, .sound, .badge]) { (granted, err) in
             //enable or disable notification
